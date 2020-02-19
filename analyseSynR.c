@@ -1,3 +1,246 @@
+//Grammar Definition With New Values In The LEXER Read Read.me
+/*
+
+STMTS -> STMT STMTS
+STMTS -> ''
+
+STMT -> AFFEC
+STMT -> IF
+STMT -> WHILE
+STMT -> FOR
+STMT -> REPEAT
+STMT -> BREAK
+STMT -> NEXT
+STMT -> PRINT
+STMT -> ABS
+STMT -> SIGN
+STMT -> SQRT
+STMT -> FLOOR
+STMT -> CEILING
+STMT -> EXPO
+STMT -> LOG2
+STMT -> LOG10
+STMT -> COS
+STMT -> SIN
+STMT -> TAN
+STMT -> ASIN
+STMT -> ACOS
+STMT -> ATAN
+STMT -> COSH
+STMT -> SINH
+STMT -> TANH
+STMT -> ACOSH
+STMT -> ASINH
+STMT -> ATANH
+STMT -> MOD
+STMT -> LENGHT
+STMT -> CLASS
+STMT -> OLDCLASS
+STMT -> SUM
+STMT -> MEAN
+STMT -> MEDIAN
+STMT -> QUANTILE
+STMT -> RANK
+STMT -> VAR
+STMT -> SD
+STMT -> MAX
+STMT -> MIN
+STMT -> ROUND
+STMT -> SIGNIF
+STMT -> PLOT
+
+    AFFEC-> id SG_AFFEC B
+
+    B-> FUNCT
+    B-> VECTOR
+    B-> id K
+
+    B -> ABS
+    B -> SIGN
+    B -> SQRT
+    B -> FLOOR
+    B -> CEILING
+    B -> EXPO
+    B -> LOG2
+    B -> LOG10
+    B -> COS
+    B -> SIN
+    B -> TAN
+    B -> ASIN
+    B -> ACOS
+    B -> ATAN
+    B -> COSH
+    B -> SINH
+    B -> TANH
+    B -> ACOSH
+    B -> ASINH
+    B -> ATANH
+    B -> MOD
+    B -> LENGHT
+    B -> CLASS
+    B -> OLDCLASS
+    B -> SUM
+    B -> MEAN
+    B -> MEDIAN
+    B -> QUANTILE
+    B -> RANK
+    B -> VAR
+    B -> SD
+    B -> MAX
+    B -> MIN
+    B -> ROUND
+    B -> SIGNIF
+
+
+
+    B -> ( EXP ) MULT1 MULT_AUX
+    B -> num MULT1 MULT_AUX
+
+    K -> ( ARGLIST )
+    K -> MULT1 ADD1
+
+    SG_AFFEC -> <-
+    SG_AFFEC -> <<-
+    SG_AFFEC -> =
+
+    IF -> if ( OR ) { STMTS } ELSE
+    ELSE -> ''
+    ELSE -> else D
+    D -> { STMTS }
+    D -> IF
+
+    FOR -> for ( id in   C
+    C -> VECTOR ) { STMTS }
+    C -> SEQ ) { STMTS }
+
+
+    WHILE  -> while ( OR ) { STMTS }
+
+
+    REPEAT -> repeat { STMTS }
+
+
+    SWITCH -> switch ( VAL , VAL , ARGLIST )
+
+    FUNCT ->  function ( ARGLIST ) { STMTS FUNCT_FIN
+    FUNCT_FIN ->  return ( VAL ) }
+    FUNCT_FIN -> }
+
+
+        ARGLIST -> VAL ARGLIST1
+
+        ARGLIST1 -> , VAL ARGLIST1
+        ARGLIST1 -> ''
+
+          VAL -> id
+          VAL -> num
+          VAL -> ''
+          VAL -> AP_TOKEN id AP_TOKEN
+          VAL -> GUILL_TOKEN id GUILL_TOKEN
+
+          SEQ -> seq ( num , num , num )
+          SEQ -> num : num
+
+          VECTOR -> c ( ARGLIST )
+
+
+            EXP -> MULT ADD1
+
+            ADD1 -> + MULT ADD1
+            ADD1 -> - MULT ADD1
+            ADD1 -> ''
+
+            MULT -> MULT_AUX MULT1
+            MULT1 -> * MULT_AUX MULT1
+            MULT1 -> / MULT_AUX MULT1
+            MULT1 -> ''
+
+            MULT_AUX -> ( EXP )
+            MULT_AUX -> VAL
+
+            OR -> AND OR1
+
+            OR1 -> | AND OR1
+            OR1 -> ''
+
+            AND -> NOT AND1
+
+            AND1 -> & NOT AND1
+            AND1 -> ''
+
+            NOT -> ! NOT
+            NOT ->  COND
+
+            COND -> ( AUX
+            COND -> num MULT1 ADD1 COMP EXP
+            COND -> TRUE
+            COND -> FALSE
+            COND -> id MULT1 ADD1 COMP EXP
+
+            AUX -> EXP ) MULT1 ADD1 COMP EXP
+
+            COMP -> <
+            COMP -> >
+            COMP -> <=
+            COMP -> >=
+            COMP -> ==
+            COMP -> ''
+
+
+
+
+
+BREAK -> BREAK_TOKEN
+NEXT -> NEXT_TOKEN
+
+PRINT -> print ( PRINT1 )
+PRINT1 -> EXP
+PRINT1 -> AP_TOKEN EXP AP_TOKEN
+PRINT1 -> GUILL_TOKEN EXP GUILL_TOKEN
+
+ABS -> abs ( VAL )
+SIGN -> signe ( VAL )
+SQRT -> sqrt ( VAL )
+FLOOR -> floor ( VAL )
+CEILING -> ceiling  ( VAL )
+EXPO -> exp ( VAL )
+LOG2 -> log2 ( VAL )
+LOG10 -> log10 ( VAL )
+COS -> cos ( VAL )
+SIN -> sin ( VAL )
+TAN -> tan ( VAL )
+ASIN -> asin ( VAL )
+ACOS -> acos  ( VAL )
+ATAN ->atan  ( VAL )
+COSH -> cosh  ( VAL )
+SINH -> sinh  ( VAL )
+TANH -> tanh  ( VAL )
+ACOSH -> acosh  ( VAL )
+ASINH -> asinh  ( VAL )
+ATANH -> atanh  ( VAL )
+MOD -> mod ( VAL , VAL )
+LENGHT -> lenght ( VID )
+CLASS -> class  ( VAL )
+OLDCLASS -> oldclass  ( VAL )
+SUM -> sum ( VID )
+MEAN -> mean ( VID )
+MEDIAN -> median ( VID )
+QUANTILE -> quantile ( VID )
+RANK -> rank ( VAL )
+VAR -> var ( VID )
+SD -> sd ( VID )
+MAX -> max ( VID )
+MIN -> min ( VID )
+ROUND -> round( VAL , VAL )
+SIGNIF -> signif ( VAL , VAL )
+PLOT -> plot ( VID , VID )
+VID -> VECTOR
+VID -> id
+SELECTION -> id [ POS ]
+POS -> num
+POS -> SEQ
+POQ -> VECTOR
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
